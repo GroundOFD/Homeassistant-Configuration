@@ -23,7 +23,7 @@ installed and also dependent on the position of the sun (she needs to be a littl
 to be on in the first part of the day when she basks under the heat lamp.
 
 The Kitchen and Living room lights are turned on if either my wife or myself (or both) are at home just before sunset this is facilitated
-by a companion implemetation of OwnTracks and the iBeacon previoulsy listed.
+by a companion implemetation of OwnTracks and the iBeacon previously listed.
 
 I have installed an additional Aeotec Gen5 Multisensor in our office room and am currently working on integrating that to improve the logic
 that controls the lighting as the later part of the evening sets in. Right at the moment the single PIR in the bedroom provides a limited
