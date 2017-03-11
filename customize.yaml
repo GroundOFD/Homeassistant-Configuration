@@ -1,0 +1,132 @@
+# customize: !include customize.yaml
+switch.pc_room_:
+  friendly_name: Moo Castle Heater Lamp
+
+switch.bedroom_filter:
+  friendly_name: Moo Castle UV Lamp
+
+sensor.aeotec_zw074_multisensor_gen5_alarm_level_2_1:
+  friendly_name: Moo Castle Alarm Level
+
+sensor.aeotec_zw074_multisensor_gen5_alarm_type_2_0:
+  friendly_name: Moo Castle Alarm Type
+
+sensor.aeotec_zw074_multisensor_gen5_burglar_2_10:
+  friendly_name: Moo Castle Burglar Alarm
+
+sensor.aeotec_zw074_multisensor_gen5_luminance_2_3:
+  friendly_name: Moo Castle Light Level
+
+sensor.aeotec_zw074_multisensor_gen5_relative_humidity_2_5:
+  friendly_name: Moo Castle Relative Humidity
+
+sensor.aeotec_zw074_multisensor_gen5_temperature_2_1:
+  friendly_name: Moo Castle Temperature
+
+sensor.aeotec_zw074_multisensor_gen5_sourcenodeid_2_2:
+  friendly_name: Moo Castle Source Node ID
+
+binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0:
+  friendly_name: Bedroom PIR
+
+binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0:
+  friendly_name: PC Room PIR
+
+sensor.aeotec_zw074_multisensor_gen5_alarm_level_4_1:
+  friendly_name: PC Room Alarm Level
+
+sensor.aeotec_zw074_multisensor_gen5_alarm_type_4_0:
+  friendly_name: PC Room Alarm Alarm Type
+
+sensor.aeotec_zw074_multisensor_gen5_burglar_4_10:
+  friendly_name: PC Room Alarm Burglar Alarm
+
+sensor.aeotec_zw074_multisensor_gen5_luminance_4_3:
+  friendly_name: PC Room Light Level
+
+sensor.aeotec_zw074_multisensor_gen5_relative_humidity_4_5:
+  friendly_name: PC Room Relative Humidity
+
+sensor.aeotec_zw074_multisensor_gen5_temperature_4_1:
+  friendly_name: PC Room Temperature
+
+sensor.aeotec_zw074_multisensor_gen5_sourcenodeid_4_2:
+  friendly_name: PC Room Source Node ID
+
+sensor.dark_sky_dew_point:
+  friendly_name: Dew Point
+
+sensor.dark_sky_minutely_summary:
+  friendly_name: Outlook for Next Hour
+
+sensor.dark_sky_nearest_storm_distance:
+  friendly_name: Nearest Storm
+
+sensor.dark_sky_summary:
+  friendly_name: Summary
+
+sensor.dark_sky_visibility:
+  friendly_name: Visibility
+
+sensor.dark_sky_wind_bearing:
+  friendly_name: Wind Direction
+
+sensor.dark_sky_wind_speed:
+  friendly_name: Wind Speed
+
+sensor.netatmo_garendonclose_humidity:
+  friendly_name: Shepshed Humidity
+
+sensor.netatmo_garendonclose_temperature:
+  friendly_name: Shepshed Temperature
+
+sensor.netatmo_livingroom_co2:
+  friendly_name: CO2
+
+sensor.netatmo_livingroom_humidity:
+  friendly_name: Relative Humidity
+
+sensor.netatmo_livingroom_noise:
+  friendly_name: Noise Level
+
+sensor.netatmo_livingroom_pressure:
+  friendly_name: Shepshed Air Pressure
+
+sensor.netatmo_livingroom_temperature:
+  friendly_name: Temperature
+
+light.hue_ambiance_lamp_1:
+  friendly_name: Kitchen Light
+
+light.hue_ambiance_lamp_2:
+  friendly_name: Bathroom Light
+
+light.hue_ambiance_lamp_3:
+  friendly_name: Hall Light
+
+light.hue_white_lamp_1:
+  friendly_name: Landing Light
+
+light.hue_color_lamp_1:
+  friendly_name: Dining Table Light
+
+light.hue_color_lamp_3:
+  friendly_name: Lounge Light
+
+light.hue_lightstrip_plus_1:
+  friendly_name: TV Surround Light
+
+light.hue_color_lamp_2:
+  friendly_name: Bedroom Light
+
+binary_sensor.livingroom_motion:
+  friendly_name: Movement in Living Room
+
+binary_sensor.livingroom_someone_known:
+  friendly_name: Known Person in Living Room
+
+binary_sensor.livingroom_someone_unknown:
+  friendly_name: Unknown Person in Living Room
+
+input_boolean.sun_has_risen:
+  friendly_name: Day/Night

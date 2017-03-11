@@ -1,0 +1,19 @@
+sun_has_risen:
+  name: Waiting for sunrise
+  icon: mdi:weather-sunset-up
+
+motion_detected_living_room:
+  name: Living Room Motion
+  initial: off
+
+gary_home:
+  name: Gary Home
+  initial: off
+
+jane_home:
+  name: Jane Home
+  initial: off
+
+family_home:
+  name: Family at Home
+  initial: off

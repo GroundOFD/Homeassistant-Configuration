@@ -1,0 +1,326 @@
+- alias: HA_Start After Sunrise
+  trigger:
+    platform: event
+    event_type: homeassistant_start
+  condition:
+    condition: and
+    conditions:
+      - condition: sun
+        after: sunrise
+      - condition: sun
+        before: sunset
+  action:
+    - service: switch.turn_on
+      entity_id: switch.pc_room_
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.sun_has_risen
+    - service: notify.pushbullet
+      data:
+        message: "System Restart at Moo Castle!"
+        title: "Moo Castle Update"
+
+- alias: HA_Start After Sunset
+  trigger:
+    platform: event
+    event_type: homeassistant_start
+  condition:
+    condition: and
+    conditions:
+      - condition: sun
+        after: sunset
+      - condition: sun
+        before: sunrise
+  action:
+    - service: switch.turn_on
+      entity_id: switch.pc_room_
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.sun_has_risen
+    - service: notify.pushbullet
+      data:
+        message: "System Restart at Moo Castle!"
+        title: "Moo Castle Update"
+
+- alias: Toggle Sunrise State Tracker to On
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.sun_has_risen
+
+- alias: Toggle Sunrise State Tracker to Off
+  trigger:
+    platform: sun
+    event: sunset
+  action:
+    service: homeassistant.turn_off
+    entity_id: input_boolean.sun_has_risen
+
+- alias: Turn on Moo Castle UV Lamp and Heater
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    - service: switch.turn_on
+      entity_id: switch.pc_room_
+    - service: switch.turn_on
+      entity_id: switch.bedroom_filter
+    - service: notify.pushbullet
+      data:
+        message: "Sun up at Moo Castle!"
+        title: "Moo Castle Update"
+
+- alias: Turn off Moo Castle UV Lamp 3.5 hours after sunrise
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: '03:30:00'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.bedroom_filter
+    - service: notify.pushbullet
+      data:
+        message: "Morning over at Moo Castle!"
+        title: "Moo Castle Update"
+
+- alias: Before Sunrise - Moo Castle - Below 21 c
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_has_risen
+    state: 'off'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_zw074_multisensor_gen5_temperature_2_1
+    below: 21
+  action:
+    - service: switch.turn_on
+      entity_id: switch.pc_room_
+    - service: notify.pushbullet
+      data:
+        message: "It's less than 21c in here human! Turn on the lamp!"
+        title: "Moo Castle Update"
+
+- alias: Before Sunrise - Moo Castle - Above 22 c
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_has_risen
+    state: 'off'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_zw074_multisensor_gen5_temperature_2_1
+    above: 22
+  action:
+    - service: switch.turn_off
+      entity_id: switch.pc_room_
+    - service: notify.pushbullet
+      data:
+        message: "It's more than 21c in here human! Turn off the lamp!"
+        title: "Moo Castle Update"
+
+- alias: After Sunrise - Moo Castle - Below 24 c
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_has_risen
+    state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_zw074_multisensor_gen5_temperature_2_1
+    below: 24
+  action:
+    - service: switch.turn_on
+      entity_id: switch.pc_room_
+    - service: notify.pushbullet
+      data:
+        message: "It's less than 24c in here human! Turn on the lamp!"
+        title: "Moo Castle Update"
+
+- alias: After Sunrise - Moo Castle - Above 26 c
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_has_risen
+    state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_zw074_multisensor_gen5_temperature_2_1
+    above: 26
+  action:
+    - service: switch.turn_off
+      entity_id: switch.pc_room_
+    - service: notify.pushbullet
+      data:
+        message: "It's more than 26c in here human! Turn off the lamp!"
+        title: "Moo Castle Update"
+
+- alias: Gary left Home
+  condition:
+    condition: state
+    entity_id: input_boolean.gary_home
+    state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.pi_garyss7
+    state: 'not_home'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.gary_home
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.family_home
+    - service: automation.turn_on
+      entity_id: automation.lights_on_as_someone_arrives_15_mins_before_sunset
+
+- alias: Gary arrived Home
+  condition:
+    condition: state
+    entity_id: input_boolean.gary_home
+    state: 'off'
+  trigger:
+    platform: state
+    entity_id: device_tracker.pi_garyss7
+    state: 'home'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.gary_home
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.family_home
+
+- alias: Jane left Home
+  condition:
+    condition: state
+    entity_id: input_boolean.jane_home
+    state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.pi_janes6
+    state: 'not_home'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.jane_home
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.family_home
+    - service: automation.turn_on
+      entity_id: automation.lights_on_as_someone_arrives_15_mins_before_sunset
+
+- alias: Jane arrived Home
+  condition:
+    condition: state
+    entity_id: input_boolean.jane_home
+    state: 'off'
+  trigger:
+    platform: state
+    entity_id: device_tracker.pi_janes6
+    state: 'home'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.jane_home
+    -  service: homeassistant.turn_on
+       entity_id: input_boolean.family_home
+
+- alias: Lights on as someone arrives - 15 mins before sunset
+  condition:
+    condition: state
+    entity_id: input_boolean.family_home
+    state: 'on'
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "00:10:00"
+  action:
+    - service: light.hue_activate_scene
+      data:
+        group_name: "Kitchen"
+        scene_name: "Read"
+    - service: light.hue_activate_scene
+      data:
+        group_name: "Living Room"
+        scene_name: "Relax"
+    - service: automation.turn_off
+      entity_id: automation.lights_on_as_someone_arrives_15_mins_before_sunset
+
+- alias: Bathroom light triggered by Sunset
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_2
+        state: 'off'
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "00:10:00"
+  action:
+    service: light.hue_activate_scene
+    data:
+      group_name: "Bathroom"
+      scene_name: "Read"
+
+- alias: Bathroom light off after midnight
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_2
+        state: 'off'
+      - condition: sun
+        before: sunrise
+  trigger:
+    platform: time
+    after: "00:10:00"
+  action:
+    service: light.turn_off
+    entity_id: light.hue_ambiance_lamp_2
+    data:
+        transition: 120
+
+- alias: Bathroom light triggered by PIR
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: time
+        after: "00:10:00"
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_2
+        state: 'off'
+      - condition: sun
+        before: sunrise
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0
+    state: 'on'
+  action:
+    service: light.hue_activate_scene
+    data:
+      group_name: "Bathroom"
+      scene_name: "Relax"
+
+- alias: Bathroom light off after PIR trigger
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: time
+        after: "00:10:00"
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_2
+        state: 'on'
+      - condition: sun
+        before: sunrise
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0
+    state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.hue_ambiance_lamp_2
+    data:
+        transition: 120

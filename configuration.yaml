@@ -1,0 +1,184 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 52.77048750000001
+  longitude: -1.2897070312500176
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 73
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  customize: !include customize.yaml
+zone:
+  name: Home
+  latitude: 52.77048750000001
+  longitude: -1.2897070312500176
+  radius: 50
+  icon: mdi:home
+
+zone 2:
+  name: KSB
+  latitude: 52.78580619999999
+  longitude: -1.2308696
+  radius: 50
+  icon: mdi:office
+
+zone 3:
+  name: Axess
+  latitude: 53.005316699999995
+  longitude: -1.4820195999999999
+  radius: 50
+  icon: mdi:office
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# MQTT Broker
+mqtt:
+  broker: 192.168.2.75
+  port: 1883
+  username: pi
+  password: !secret mqtt_broker_password
+# Weather Prediction
+sensor:
+  - platform: darksky
+    api_key: !secret dark_sky_api_key
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - visibility
+      - minutely_summary
+
+  - platform: openweathermap
+    api_key: !secret owm_api_key
+    forecast: 1
+    monitored_conditions:
+      - weather
+      - temperature
+      - wind_speed
+      - wind_bearing
+      - clouds
+      - rain
+      - snow
+
+#weather:
+#  - platform: openweathermap
+#    api_key: !secret owm_api_key
+
+# Binary Sensors
+binary_sensor:
+  - platform: iss
+    show_on_map: true
+
+# Show ISS on Map
+camera 4:
+  - platform: generic
+    name: ISS
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.binary_sensor.iss.attributes.latitude }},{{ states.binary_sensor.iss.attributes.longitude }}&zoom=5&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:P%7C{{ states.binary_sensor.iss.attributes.latitude }},{{ states.binary_sensor.iss.attributes.longitude }}
+    limit_refetch_to_url_change: true
+
+# Text to speech
+tts:
+  platform: google
+
+# Notifications
+notify:
+  - name: PushBullet
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key
+
+# Camera feeds
+camera:
+  platform: mjpeg
+  mjpeg_url: http://192.168.2.56:8081
+
+camera 1:
+  platform: mjpeg
+  mjpeg_url: http://192.168.2.56:8083
+
+camera 2:
+  platform: mjpeg
+  mjpeg_url: http://192.168.2.56:8099  
+    
+# weblinks
+weblink:
+  entities:
+    - name: Moo Cam 1
+      url: http://marthacam.dynalias.org:8081
+    - name: Moo Cam 2
+      url: http://marthacam.dynalias.org:8083
+    - name: Moo Cam 3
+      url: http://marthacam.dynalias.org:8099
+
+# Netatmo
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: gary.anthony.round@gmail.com
+  password: !secret netatmo_password
+
+# Z-WAVE
+zwave:
+  usb_path: /dev/ttyACM0
+
+# TP-Link Switch
+switch:
+  platform: tplink
+  host: 192.168.2.60
+switch 1:
+  platform: tplink
+  host: 192.168.2.45
+
+# Device tracking
+device_tracker:
+#  - platform: nmap_tracker
+#    hosts: 192.168.2.1/24
+  - platform: bluetooth_tracker
+  - platform: owntracks
+    max_gps_accuracy: 200
+
+
+# Boolean Inputs
+input_boolean: !include booleans.yaml
+
+# Groups and Views
+group: !include group.yaml
+
+# Automation    
+automation: !include automation.yaml

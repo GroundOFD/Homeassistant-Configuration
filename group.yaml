@@ -1,0 +1,134 @@
+Local Weather:
+  - sensor.dark_sky_summary
+  - sensor.netatmo_garendonclose_temperature
+  - sensor.netatmo_garendonclose_humidity
+
+UK Weather:
+  - sensor.dark_sky_icon
+  - sensor.dark_sky_minutely_summary
+  - sensor.dark_sky_nearest_storm_distance
+  - sensor.dark_sky_wind_bearing
+  - sensor.dark_sky_wind_speed
+  - sensor.dark_sky_visibility
+  - sensor.owm_cloud_coverage
+  - sensor.netatmo_garendonclose_humidity
+  - sensor.netatmo_garendonclose_temperature
+  - sensor.dark_sky_dew_point
+
+Security Sensors:
+  - binary_sensor.livingroom_motion
+  - binary_sensor.livingroom_someone_known
+  - binary_sensor.livingroom_someone_unknown
+
+Living Room:
+  - light.hue_color_lamp_1
+  - light.hue_color_lamp_3
+  - light.hue_lightstrip_plus_1
+  - camera.livingroom
+  - sensor.netatmo_livingroom_temperature
+  - sensor.netatmo_livingroom_humidity
+  - sensor.netatmo_livingroom_noise
+  - sensor.netatmo_livingroom_co2
+
+Bedroom:
+  - light.hue_color_lamp_2
+
+PC Room:
+  entities:
+    - binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
+    - sensor.aeotec_zw074_multisensor_gen5_temperature_4_1
+    - sensor.aeotec_zw074_multisensor_gen5_luminance_4_3
+    - sensor.aeotec_zw074_multisensor_gen5_relative_humidity_4_5
+    - sensor.aeotec_zw074_multisensor_gen5_alarm_level_4_1
+    - sensor.aeotec_zw074_multisensor_gen5_alarm_type_4_0
+    - sensor.aeotec_zw074_multisensor_gen5_burglar_4_10
+    - sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
+
+Bathroom:
+  - light.hue_ambiance_lamp_2
+
+Landing:
+  - light.hue_white_lamp_1
+
+Hallway:
+  - light.hue_ambiance_lamp_3
+
+Kitchen:
+  - light.hue_ambiance_lamp_1
+
+Moo Castle:
+  control: hidden
+  entities:
+    - switch.bedroom_filter
+    - switch.pc_room_
+    - sensor.aeotec_zw074_multisensor_gen5_temperature_2_1
+    - sensor.aeotec_zw074_multisensor_gen5_luminance_2_3
+    - sensor.aeotec_zw074_multisensor_gen5_relative_humidity_2_5
+#    - camera.mjpeg_camera
+    - camera.mjpeg_camera_2
+    - camera.mjpeg_camera_3
+
+Moo Cam Links:
+  - weblink.moo_cam_1
+  - weblink.moo_cam_2
+  - weblink.moo_cam_3
+
+ISS:
+  - camera.iss
+  - binary_sensor.iss
+
+In Residence:
+  - input_boolean.gary_home
+  - input_boolean.jane_home
+
+default_view:
+  view: yes
+  entities:
+    - group.local_weather
+    - camera.livingroom
+    - group.in_residence
+    - group.moo_castle
+    - group.security_sensors
+
+weather:
+  name: Weather
+  view: yes
+  icon: mdi:weather-partlycloudy
+  entities:
+    - group.uk_weather
+
+cameras:
+  name: Cameras
+  view: yes
+  icon: mdi:camera
+  entities:
+    - camera.livingroom
+    - camera.mjpeg_camera_2
+    - camera.mjpeg_camera
+
+rooms:
+  name: Rooms
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.kitchen
+    - group.living_room
+    - group.hallway
+    - group.landing
+    - group.bathroom
+    - group.bedroom
+    - group.pc_room
+
+castle:
+  view: yes
+  control: hidden
+  icon: mdi:castle
+  entities:
+    - group.moo_castle
+    - group.moo_cam_links
+
+following:
+  view: yes
+  icon: mdi:message-text-outline
+  entities:
+    - group.iss
