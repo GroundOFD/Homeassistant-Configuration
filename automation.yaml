@@ -74,7 +74,7 @@
   trigger:
     platform: sun
     event: sunrise
-    offset: '03:30:00'
+    offset: "03:30:00"
   action:
     - service: switch.turn_off
       entity_id: switch.bedroom_filter
@@ -82,6 +82,16 @@
       data:
         message: "Morning over at Moo Castle!"
         title: "Moo Castle Update"
+
+- alias: Test PC Room light/trigger/sensor
+  trigger:
+    platform: time
+    after: '20:52'
+  action:
+    service: light.hue_activate_scene
+    data:
+      group_name: "PC room"
+      scene_name: "Read"
 
 - alias: Before Sunrise - Moo Castle - Below 21 c
   condition:
@@ -221,12 +231,11 @@
     conditions:
       - condition: sun
         after: sunset
-        after_offset: '-00:15:00'
+        after_offset: "-00:15:00"
   trigger:
     platform: state
     entity_id: input_boolean.family_home
-    from: 'off'
-    to: 'on'
+    state: 'on'
   action:
     - service: light.hue_activate_scene
       data:
@@ -264,14 +273,14 @@
   trigger:
     platform: sun
     event: sunset
-    offset: '00:05:00'
+    offset: "00:05:00"
   action:
     service: light.hue_activate_scene
     data:
       group_name: "Bathroom"
       scene_name: "Read"
 
-- alias: PC room light triggered by Sunset
+- alias: PC room light triggered after Sunset
   condition:
     condition: and
     conditions:
@@ -280,7 +289,7 @@
         state: 'on'
       - condition: sun
         after: sunset
-        after_offset: '00:05:00'
+        after_offset: "00:05:00"
       - condition: state
         entity_id: light.hue_ambiance_lamp_4
         state: 'off'
@@ -291,7 +300,7 @@
   action:
     service: light.hue_activate_scene
     data:
-      group_name: "PC room"
+      group_name: "PC Room"
       scene_name: "Read"
 
 - alias: Bathroom light off after midnight
@@ -308,7 +317,7 @@
         entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
         state: 'off'
       - condition: time
-        after: '00:10:00'
+        after: "00:10:00"
       - condition: sun
         before: sunrise
   trigger:
@@ -335,7 +344,7 @@
         entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
         state: 'off'
       - condition: time
-        after: '00:10:00'
+        after: "00:10:00"
       - condition: sun
         before: sunrise
   trigger:
@@ -356,7 +365,7 @@
         entity_id: input_boolean.family_home
         state: 'on'
       - condition: time
-        after: '00:10:00'
+        after: "00:10:00"
       - condition: state
         entity_id: light.hue_ambiance_lamp_2
         state: 'off'
@@ -380,7 +389,7 @@
         entity_id: input_boolean.family_home
         state: 'on'
       - condition: time
-        after: '00:10:00'
+        after: "00:10:00"
       - condition: state
         entity_id: light.hue_ambiance_lamp_2
         state: 'on'
