@@ -13,6 +13,7 @@ deps
 tts
 secrets.yaml
 known_devices.yaml
+zwave_device_config.yaml
 *.conf
 plex.conf
 phue.conf
