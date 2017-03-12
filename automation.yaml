@@ -271,6 +271,29 @@
       group_name: "Bathroom"
       scene_name: "Read"
 
+- alias: PC room light triggered by Sunset
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: sun
+        after: sunset
+        after_offset: '00:05:00'
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_4
+        state: 'off'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
+    state: 'on'
+  action:
+    service: light.hue_activate_scene
+    data:
+      group_name: "PC room"
+      scene_name: "Read"
+
 - alias: Bathroom light off after midnight
   condition:
     condition: and
@@ -297,6 +320,33 @@
     entity_id: light.hue_ambiance_lamp_2
     data:
         transition: 120
+
+- alias: PC room light off after midnight
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.family_home
+        state: 'on'
+      - condition: state
+        entity_id: light.hue_ambiance_lamp_4
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
+        state: 'off'
+      - condition: time
+        after: '00:10:00'
+      - condition: sun
+        before: sunrise
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0
+    state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.hue_ambiance_lamp_4
+    data:
+      transition: 120
 
 - alias: Bathroom light triggered by PIR
   condition:

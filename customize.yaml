@@ -104,6 +104,9 @@ light.hue_ambiance_lamp_2:
 light.hue_ambiance_lamp_3:
   friendly_name: Hall Light
 
+light.hue_ambiance_lamp_4:
+  friendly_name: PC Room Light
+
 light.hue_white_lamp_1:
   friendly_name: Landing Light
 

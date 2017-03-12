@@ -37,6 +37,7 @@ Bedroom:
 
 PC Room:
   entities:
+    - light.hue_ambiance_lamp_4
     - binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
     - sensor.aeotec_zw074_multisensor_gen5_temperature_4_1
     - sensor.aeotec_zw074_multisensor_gen5_luminance_4_3
