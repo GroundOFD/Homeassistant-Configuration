@@ -217,13 +217,16 @@
 
 - alias: Lights on as someone arrives - 15 mins before sunset
   condition:
-    condition: state
-    entity_id: input_boolean.family_home
-    state: 'on'
+    condition: and
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: '-00:15:00'
   trigger:
-    platform: sun
-    event: sunset
-    offset: "00:10:00"
+    platform: state
+    entity_id: input_boolean.family_home
+    from: 'off'
+    to: 'on'
   action:
     - service: light.hue_activate_scene
       data:
@@ -233,8 +236,20 @@
       data:
         group_name: "Living Room"
         scene_name: "Relax"
-    - service: automation.turn_off
-      entity_id: automation.lights_on_as_someone_arrives_15_mins_before_sunset
+
+- alias: Lights off when no Family at home
+  condition:
+    condition: state
+    entity_id: input_boolean.lightskill_override
+    state: 'off'
+  trigger:
+    platform: state
+    entity_id: input_boolean.family_home
+    from: 'on'
+    to: 'off'
+  action:
+    service: light.Turn_off
+    entity_id: group.all_lights
 
 - alias: Bathroom light triggered by Sunset
   condition:
@@ -249,7 +264,7 @@
   trigger:
     platform: sun
     event: sunset
-    offset: "00:10:00"
+    offset: '00:05:00'
   action:
     service: light.hue_activate_scene
     data:
@@ -265,12 +280,18 @@
         state: 'on'
       - condition: state
         entity_id: light.hue_ambiance_lamp_2
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_4_0
         state: 'off'
+      - condition: time
+        after: '00:10:00'
       - condition: sun
         before: sunrise
   trigger:
-    platform: time
-    after: "00:10:00"
+    platform: state
+    entity_id: binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0
+    state: 'on'
   action:
     service: light.turn_off
     entity_id: light.hue_ambiance_lamp_2
@@ -285,7 +306,7 @@
         entity_id: input_boolean.family_home
         state: 'on'
       - condition: time
-        after: "00:10:00"
+        after: '00:10:00'
       - condition: state
         entity_id: light.hue_ambiance_lamp_2
         state: 'off'
@@ -309,7 +330,7 @@
         entity_id: input_boolean.family_home
         state: 'on'
       - condition: time
-        after: "00:10:00"
+        after: '00:10:00'
       - condition: state
         entity_id: light.hue_ambiance_lamp_2
         state: 'on'

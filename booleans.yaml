@@ -17,3 +17,7 @@ jane_home:
 family_home:
   name: Family at Home
   initial: off
+
+lightskill_override:
+  name: Light Kill Override
+  initial: off

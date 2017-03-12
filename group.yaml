@@ -16,6 +16,7 @@ UK Weather:
   - sensor.dark_sky_dew_point
 
 Security Sensors:
+  - input_boolean.lightskill_override
   - binary_sensor.livingroom_motion
   - binary_sensor.livingroom_someone_known
   - binary_sensor.livingroom_someone_unknown
@@ -32,6 +33,7 @@ Living Room:
 
 Bedroom:
   - light.hue_color_lamp_2
+  - binary_sensor.aeotec_zw074_multisensor_gen5_sensor_3_0
 
 PC Room:
   entities:

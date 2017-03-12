@@ -130,3 +130,6 @@ binary_sensor.livingroom_someone_unknown:
 
 input_boolean.sun_has_risen:
   friendly_name: Day/Night
+
+input_boolean.lightskill_override:
+  friendly_name: Override Lights Off when away
